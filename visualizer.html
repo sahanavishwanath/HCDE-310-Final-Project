@@ -4,12 +4,17 @@
 <title>{{page_title}}</title>
 </head>
 <body>
-<h1>{{page_title}}</h1>
+<h1>LOCATION</h1>
 <br>
 <div>
-	<h3>hi</h3>
-
+	<p>Please input the latitude and longitude of a specified location (this link may be helpful to find the exact
+	coordinates: https://www.latlong.net/). Remember the coordinates must be in the Seattle area!</p>
+	<form action="map" method="post">
+		<label for="latitude">LATITUDE:</label>
+		<input type="text" id="latitude" name="latitude"/>
+		<label for="longitude">LONGITUDE:</label>
+		<input type="text" id="longitude" name="longitude"/>
+		<input type="submit" value="Go" name="gobtn"/></form>
 </div>
-
 </body>
 </html>

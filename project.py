@@ -55,34 +55,47 @@ class MainHandler(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('greetform.html')
         self.response.write(template.render(template_values))
 
-
 class GreetResponseHandlr(webapp2.RequestHandler):
     def post(self):
         vals = {}
-        option = self.request.get('option')
-        if(option == "1."):
+        checkReports = self.request.POST.get('crime')
+        checkPark = self.request.POST.get('crimepark')
+        if(checkReports):
             vals['page_title'] = "Police Incident Reporter"
-
             template = JINJA_ENVIRONMENT.get_template('policereport.html')
             self.response.write(template.render(vals))
-        else:
+        elif(checkPark):
             vals['page_title'] = "Police Incident Report, Bike Racks, and Parking Lot Visualizer"
-
             template = JINJA_ENVIRONMENT.get_template('visualizer.html')
             self.response.write(template.render(vals))
 
 class PoliceReportMapHandlr(webapp2.RequestHandler):
     def post(self):
         vals = {}
-        param = self.request.get('filter')
-        type = self.request.get('type')
+        #param = self.request.get('filter')
+        #type = self.request.get('type')
         vals['page_title'] = "Police Incident Report Map"
-        reportData = getReports(param, type)
+        #reportData = getReports(param, type)
 
+        template = JINJA_ENVIRONMENT.get_template('map.html')
+        self.response.write(template.render(vals))
+
+class MapVisualHandlr(webapp2.RequestHandler):
+    def post(self):
+        vals = {}
+        long = self.request.get('longitude')
+        lat = self.request.get('latitude')
+        vals['page_title'] = "Crime + Parking + Bike Rack Map"
+        vals['lat'] = lat
+        vals['long'] = long
+
+        template = JINJA_ENVIRONMENT.get_template('map.html')
+        self.response.write(template.render(vals))
 
 application = webapp2.WSGIApplication([ \
     ('/gresponse', GreetResponseHandlr),
     ('/reportmap', PoliceReportMapHandlr),
-    ('/.*', MainHandler)
+    ('/map', MapVisualHandlr),
+    ('/home', MainHandler)
 ],
 debug=True)
