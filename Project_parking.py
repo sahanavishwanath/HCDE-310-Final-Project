@@ -1,6 +1,6 @@
 #Reksha Rathnam and Sahana Vishwananth
 #Final Project
-#Seattle-Parking
+#Seattle-Parking-Bike
 
 import urllib.request, urllib.error, urllib.parse, json, webbrowser
 
@@ -24,8 +24,7 @@ def openParking():
     data = json.loads(urlOpen.read())
     return data
 
-
-def location(lat,long):
+def locationLot(lat,long):
     data = openParking()
     list = []
     for lot in data:
@@ -55,14 +54,50 @@ class ParkingInfo:
         else:
             self.rateAllDay = data['rte_allday']
 
-
 # Testing
 # data = openParking()
 # print(pretty(data))
-# list = location(47.6,-122.3)
+# list = locationLot(47.6,-122.3)
 # for dic in list:
 #     info = ParkingInfo(dic)
 #     print(info.rateAllDay)
+
+#***********************************************************************
+
+def openBikeData():
+    url = "https://data.seattle.gov/resource/fxh3-tqdm.json"
+    urlOpen = safeGet(url)
+    data = json.loads(urlOpen.read())
+    return data
+
+def locationBike(lat,long):
+    data = openBikeData()
+    list = []
+    for lot in data:
+        latitude = lot["latitude"]
+        longitude = lot["longitude"]
+        if((lat+0.0724637)>= float(latitude) and (lat-0.0724637)<= float(latitude)):
+            if((long +0.0724637)>= float(longitude) and (long -0.0724637)<= float(longitude)):
+                list.append(lot)
+    return list
+
+class RackInfo:
+    def __init__(self,data):
+        if (data.get("condition") == None):
+            self.condition = 'Unknown'
+        else:
+            self.condition = data['condition']
+        if (data.get("rack_capac") == None):
+            self.capacity = 'Unknown'
+        else:
+            self.capacity = data['rack_capac']
+#Testing
+# data = openBikeData()
+# print(pretty(data))
+# list = locationBike(47.6, -122.3)
+# for rack in list:
+#     info = RackInfo(rack)
+#     print(info.condition)
 
 
 
