@@ -20,11 +20,11 @@ def safeGet(url):
     return None
 
 
-def getReports(param = "", type = ""):
+def getReports(params):
     baseurl = 'https://data.seattle.gov/resource/policereport.json'
-    params = {}
-    params['param'] = param
-    params['type'] = type
+    #params = {}
+    #params['param'] = param
+    #params['type'] = type
     url = baseurl + "?" + urllib.urlencode(params)
     response = safeGet(url)
     if (response != None):
@@ -44,6 +44,10 @@ def getParkingLots():
     if (response != None):
         data = response.read()
         return json.loads(data)
+
+def getMap():
+    baseurl = 'https://maps.googleapis.com/maps/api/staticmap?'
+    API_key = 'AIzaSyB2OtiEQpLSgstzxNHiAd0CPMlPiha7MQg'
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -72,9 +76,11 @@ class GreetResponseHandlr(webapp2.RequestHandler):
 class PoliceReportMapHandlr(webapp2.RequestHandler):
     def post(self):
         vals = {}
-        #param = self.request.get('filter')
-        #type = self.request.get('type')
+        yearFilter = self.request.POST.getall('year')
+        typeFilter = self.request.POST.getall('type')
         vals['page_title'] = "Police Incident Report Map"
+        vals['years'] = yearFilter
+        #vals['types'] = typeFilter
         #reportData = getReports(param, type)
 
         template = JINJA_ENVIRONMENT.get_template('map.html')
@@ -83,11 +89,23 @@ class PoliceReportMapHandlr(webapp2.RequestHandler):
 class MapVisualHandlr(webapp2.RequestHandler):
     def post(self):
         vals = {}
-        long = self.request.get('longitude')
-        lat = self.request.get('latitude')
+        fivemiles = 0.0724637
+        #long = int(self.request.get('longitude'))
+        #minlong = long - fivemiles
+        #maxlong = long + fivemiles
+        #lat = int(self.request.get('latitude'))
+        #minlat = lat - fivemiles
+        #maxlat = lat + fivemiles
+
         vals['page_title'] = "Crime + Parking + Bike Rack Map"
-        vals['lat'] = lat
-        vals['long'] = long
+        #vals['minlat'] = minlat
+        #vals['maxlat'] = maxlat
+        #vals['minlong'] = minlong
+        #vals['maxlong'] = maxlong
+
+        #reports = getReports()
+        #bikes = getBicycleRacks()
+        #parking = getParkingLots()
 
         template = JINJA_ENVIRONMENT.get_template('map.html')
         self.response.write(template.render(vals))
