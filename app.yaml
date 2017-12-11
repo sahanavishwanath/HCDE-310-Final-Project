@@ -3,11 +3,13 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /assets
-  static_dir: assets
+- url: /static
+  static_dir: static
 
 - url: .*
   script: project.application
+
+
 
 libraries:
 - name: webapp2

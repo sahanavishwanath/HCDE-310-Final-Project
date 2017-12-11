@@ -1,0 +1,35 @@
+body {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 13pt;
+}
+
+#title {
+    text-align: center;
+    font-size: 25pt;
+    background-color: lightgrey;
+}
+
+#header {
+    font-size: 22pt;
+    background-color: lightgrey;
+}
+
+input[type=submit] {
+    margin: 5px auto;
+    display: block;
+    font-size: 12pt;
+    width: 30%;
+}
+
+input[type=text] {
+    border-radius: 4px;
+    border: 3px solid lightgrey;
+}
+
+input[type=text]:focus {
+    border: 3px solid lightskyblue;
+}
+
+.directions {
+    font-size: 15pt;
+}

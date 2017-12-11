@@ -2,21 +2,20 @@
 <html>
 <head>
 	<title>{{page_title}}</title>
-	<link href="project.css" type="text/css" rel="stylesheet" />
+	<link href="/static/project.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div id="header">
 	<h1>LOCATION</h1>
 </div>
-<br>
 <div>
-	<p>Please input the latitude and longitude of a specified location (this link may be helpful to find the exact
+	<p class="directions">Please input the latitude and longitude of a specified location (this link may be helpful to find the exact
 	coordinates: https://www.latlong.net/). Remember the coordinates must be in the Seattle area!</p>
 	<form action="map" method="post">
 		<label for="latitude">LATITUDE:</label>
 		<input type="text" id="latitude" name="latitude"/>
 		<label for="longitude">LONGITUDE:</label>
-		<input type="text" id="longitude" name="longitude"/>
+		<input type="text" id="longitude" name="longitude"/> <br><br>
 		<input type="submit" value="Go" name="gobtn"/></form>
 </div>
 </body>

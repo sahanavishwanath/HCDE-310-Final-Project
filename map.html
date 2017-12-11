@@ -2,20 +2,14 @@
 <html>
 <head>
     <title>{{page_title}}</title>
-    <link href="project.css" type="text/css" rel="stylesheet" />
+    <link href="/static/project.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div id="header">
     <h1>MAP</h1>
 </div>
-<br>
 <div>
-	<p>{{minlat}}, {{maxlat}}</p>
-    <p>{{minlong}}, {{maxlong}}</p>
-    <p>{{type}}, hello</p>
-    {% for year in years %}
-+	    <p>{{year}}</p>
-+	{% endfor %}
+    {{img}}
 </div>
 </body>
 </html>

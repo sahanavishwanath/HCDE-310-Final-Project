@@ -2,37 +2,22 @@
 <html>
 <head>
 	<title>{{page_title}}</title>
-	<link href="project.css" type="text/css" rel="stylesheet" />
+	<link href="/static/project.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div id="header">
 	<h1>FILTER</h1>
 </div>
-<br>
 <div>
-	<p>Please select how you would like to filter the police incident reports. Please check at most one box from each section.</p>
-	<form action="map" method="post">
-		<p>YEAR</p>
-		<input type="checkbox" id="2010" name="year"/> 2010 <br>
-		<input type="checkbox" id="2011" name="year"/> 2011 <br>
-		<input type="checkbox" id="2012" name="year"/> 2012 <br>
-		<input type="checkbox" id="2013" name="year"/> 2013 <br>
-		<input type="checkbox" id="2014" name="year"/> 2014 <br>
-		<input type="checkbox" id="2015" name="year"/> 2015 <br>
-		<input type="checkbox" id="2016" name="year"/> 2016 <br>
-		<input type="checkbox" id="2017" name="year"/> 2017 <br> <br>
+	<p class="directions">Please select how you would like to filter the police incident reports.</p>
+	<form action="reportmap" method="post">
+		<p>YEAR (2010-2017)</p>
+		<label for="year">Input a year:</label>
+		<input type="text" id="year" name="year"/> <br><br>
 
-		<p>TYPE</p>
-		<input type="checkbox" id="Animal Complaint" name="type"/> Animal Complaint <br>
-		<input type="checkbox" id="Assault" name="type"/> Assault <br>
-		<input type="checkbox" id="Theft" name="type"/> Theft <br>
-		<input type="checkbox" id="Weapon" name="type"/> Weapon <br>
-		<input type="checkbox" id="Trespass" name="type"/> Trespass <br>
-		<input type="checkbox" id="Traffic" name="type"/> Traffic <br>
-		<input type="checkbox" id="Threats" name="type"/> Threats <br>
-		<input type="checkbox" id="Homicide" name="type"/> Homicide <br>
-		<input type="checkbox" id="Fraud" name="type"/> Fraud <br>
-		<input type="checkbox" id="DUI" name="type"/> DUI <br> <br>
+		<p>TYPE (Animal Complaint, Assault, Burglary, Weapon, Trespass, Traffic, Threats, Homicide, Fraud, or DUI)</p>
+		<label for="type">Input a type:</label>
+		<input type="text" id="type" name="type"/> <br> <br>
 
 		<input type="submit" value="Filter" name="gobtn"/></form>
 

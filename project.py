@@ -20,11 +20,8 @@ def safeGet(url):
     return None
 
 
-def getReports(params):
+def getReports(params={}):
     baseurl = 'https://data.seattle.gov/resource/policereport.json'
-    #params = {}
-    #params['param'] = param
-    #params['type'] = type
     url = baseurl + "?" + urllib.urlencode(params)
     response = safeGet(url)
     if (response != None):
@@ -45,10 +42,15 @@ def getParkingLots():
         data = response.read()
         return json.loads(data)
 
-def getMap():
-    baseurl = 'https://maps.googleapis.com/maps/api/staticmap?'
+def getMap(reports):
+    baseurl = 'https://maps.googleapis.com/maps/api/staticmap?size=500x500&markers=color:red%7C'
+    for report in reports:
+        baseurl = baseurl + report['latitude'] + ',' + report['longitude'] + '%7C'
+    baseurl = baseurl[:-3]
     API_key = 'AIzaSyB2OtiEQpLSgstzxNHiAd0CPMlPiha7MQg'
-
+    url = baseurl + '&' + API_key
+    img = safeGet(url)
+    return img
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -76,12 +78,22 @@ class GreetResponseHandlr(webapp2.RequestHandler):
 class PoliceReportMapHandlr(webapp2.RequestHandler):
     def post(self):
         vals = {}
-        yearFilter = self.request.POST.getall('year')
-        typeFilter = self.request.POST.getall('type')
+        year = self.request.POST.get('year')
+        type = self.request.POST.get('type')
+
+        params = {}
+        if(year):
+            params['year'] = year
+        if(type):
+            params['summarized_offense_description'] = type
+        params['district_sector'] = 'U'
+        reportData = getReports(params)
+        img = getMap(reportData)
+
         vals['page_title'] = "Police Incident Report Map"
-        vals['years'] = yearFilter
-        #vals['types'] = typeFilter
-        #reportData = getReports(param, type)
+        vals['year'] = year
+        vals['type'] = type
+        vals['map'] = img
 
         template = JINJA_ENVIRONMENT.get_template('map.html')
         self.response.write(template.render(vals))
@@ -106,6 +118,10 @@ class MapVisualHandlr(webapp2.RequestHandler):
         #reports = getReports()
         #bikes = getBicycleRacks()
         #parking = getParkingLots()
+
+        #filter function to filter each of the three dicts above to only include things within the distance range
+        #make map
+        #add map
 
         template = JINJA_ENVIRONMENT.get_template('map.html')
         self.response.write(template.render(vals))
