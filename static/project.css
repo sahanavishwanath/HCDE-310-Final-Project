@@ -18,6 +18,7 @@ input[type=submit] {
     margin: 5px auto;
     display: block;
     font-size: 12pt;
+    height: 5%;
     width: 30%;
 }
 
